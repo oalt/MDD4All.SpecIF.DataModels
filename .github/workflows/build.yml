@@ -27,13 +27,13 @@ jobs:
     - name: Echo version number
       run: echo $VERSION
       env:
-        VERSION: ${{steps.fileVersion.outputs.text}}.${GITHUB_RUN_NUMBER}
+        VERSION: ${{steps.fileVersion.outputs.text}}.${{GITHUB_RUN_NUMBER}}
 
     - name: Restore dependencies
       run: dotnet restore ./src/MDD4All.SpecIF.DataModels/MDD4All.SpecIF.DataModels.csproj
 
     - name: Build
-      run: dotnet build --no-restore -c Release /p:Version=${{ steps.fileVersion.outputs.text }}.${GITHUB_RUN_NUMBER} ./src/MDD4All.SpecIF.DataModels/MDD4All.SpecIF.DataModels.csproj
+      run: dotnet build --no-restore -c Release /p:Version=${{ steps.fileVersion.outputs.text }}.${{GITHUB_RUN_NUMBER}} ./src/MDD4All.SpecIF.DataModels/MDD4All.SpecIF.DataModels.csproj
 
 #    - name: Test
 #      run: dotnet test --no-build --verbosity normal
