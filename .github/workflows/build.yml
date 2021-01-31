@@ -36,7 +36,7 @@ jobs:
       run: dotnet build --no-restore -c Release /p:Version=${{ steps.fileVersion.outputs.text }}.${{github.run_number}} ./src/MDD4All.SpecIF.DataModels/MDD4All.SpecIF.DataModels.csproj
 
     - name: Create nuget package(s)
-      run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output ./Output
+      run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output ./Output ./src/MDD4All.SpecIF.DataModels/MDD4All.SpecIF.DataModels.csproj
       env:
         VERSION: ${{steps.fileVersion.outputs.text}}.${{github.run_number}}
 
