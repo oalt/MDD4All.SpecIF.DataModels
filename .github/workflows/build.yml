@@ -43,7 +43,7 @@ jobs:
     - name: Upload artifact(s)
       uses: actions/upload-artifact@v2
       with:
-        name: MDD4All.SpecIF.DataModels.${VERSION}
+        name: MDD4All.SpecIF.DataModels.$VERSION
         path: ./Output/*.nupkg
       env:
         VERSION: ${{steps.fileVersion.outputs.text}}.${{github.run_number}}
