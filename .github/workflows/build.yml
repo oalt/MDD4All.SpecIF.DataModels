@@ -25,7 +25,7 @@ jobs:
         path: src/version.txt
 
     - name: Set version as environment variable
-      run: echo "VERSION=$steps_fileVersion_outputs_text.$github_run_number" >> $GITHUB_ENV
+      run: echo "VERSION=$(echo $steps_fileVersion_outputs_text.$github_run_number)" >> $GITHUB_ENV
     
     - name: Echo version number
       run: echo $VERSION
