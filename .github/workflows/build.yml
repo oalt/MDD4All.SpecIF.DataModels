@@ -37,3 +37,16 @@ jobs:
 
 #    - name: Test
 #      run: dotnet test --no-build --verbosity normal
+
+     - name: Create nuget package(s)
+       run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output ./Output
+       env:
+         VERSION: ${{steps.fileVersion.outputs.text}}.${{github.run_number}}
+
+     - name: Upload artifact(s)
+       uses: actions/upload-artifact@v2
+       with:
+         name: MDD4All.SpecIF.DataModels.${VERSION}
+         path: ./Output/*.nupkg
+       env:
+         VERSION: ${{steps.fileVersion.outputs.text}}.${{github.run_number}}
