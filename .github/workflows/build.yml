@@ -24,10 +24,11 @@ jobs:
       with: 
         path: src/version.txt
 
+    - name: Set version as environment variable
+      run: echo "VERSION=$steps_fileVersion_outputs_text.$github_run_number" >> $GITHUB_ENV
+    
     - name: Echo version number
       run: echo $VERSION
-      env:
-        VERSION: ${{steps.fileVersion.outputs.text}}.${{github.run_number}}
 
     - name: Restore dependencies
       run: dotnet restore ./src/MDD4All.SpecIF.DataModels/MDD4All.SpecIF.DataModels.csproj
