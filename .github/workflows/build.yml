@@ -28,8 +28,10 @@ jobs:
       run: env
 
     - name: Set version as environment variable
-      run: echo "VERSION=$(echo $steps_fileVersion_outputs_text.$GITHUB_RUN_NUMBER)" >> $GITHUB_ENV
-    
+      run: echo "VERSION=$(echo $FILE_VERSION.$GITHUB_RUN_NUMBER)" >> $GITHUB_ENV
+      env:
+        FILE_VERSION: ${{steps.fileVersion.outputs.text}}
+
     - name: Environment variable list
       run: env
 
