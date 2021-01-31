@@ -48,12 +48,10 @@ jobs:
 
     - name: Create nuget package(s)
       run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output ./Output ./src/${PROJECT_NAME}/${PROJECT_NAME}.csproj
-      env:
-        VERSION: ${{steps.fileVersion.outputs.text}}.${{github.run_number}}
 
     - name: Upload artifact(s)
       uses: actions/upload-artifact@v2
       with:
-        name: ${PROJECT_NAME}.${VERSION}
+        name: ${{PROJECT_NAME}}.${{VERSION}}
         path: ./Output/*.nupkg
       
