@@ -10,6 +10,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: MDD4All.SpecIF.DataModels
 
     steps:
     - uses: actions/checkout@v2
@@ -39,20 +41,19 @@ jobs:
       run: echo $VERSION
 
     - name: Restore dependencies
-      run: dotnet restore ./src/MDD4All.SpecIF.DataModels/MDD4All.SpecIF.DataModels.csproj
+      run: dotnet restore ./src/${PROJECT_NAME}/${PROJECT_NAME}.csproj
 
     - name: Build
-      run: dotnet build --no-restore -c Release /p:Version=${{ steps.fileVersion.outputs.text }}.${{github.run_number}} ./src/MDD4All.SpecIF.DataModels/MDD4All.SpecIF.DataModels.csproj
+      run: dotnet build --no-restore -c Release /p:Version=${VERSION} ./src/${PROJECT_NAME}/${PROJECT_NAME}.csproj
 
     - name: Create nuget package(s)
-      run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output ./Output ./src/MDD4All.SpecIF.DataModels/MDD4All.SpecIF.DataModels.csproj
+      run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output ./Output ./src/${PROJECT_NAME}/${PROJECT_NAME}.csproj
       env:
         VERSION: ${{steps.fileVersion.outputs.text}}.${{github.run_number}}
 
     - name: Upload artifact(s)
       uses: actions/upload-artifact@v2
       with:
-        name: MDD4All.SpecIF.DataModels.$VERSION
+        name: ${PROJECT_NAME}.${VERSION}
         path: ./Output/*.nupkg
-      env:
-        VERSION: ${{steps.fileVersion.outputs.text}}.${{github.run_number}}
+      
