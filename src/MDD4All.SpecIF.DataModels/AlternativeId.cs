@@ -2,17 +2,26 @@
  * Copyright (c) MDD4All.de, Dr. Oliver Alt
  */
 using MDD4All.SpecIF.DataModels.BaseTypes;
-using MDD4All.SpecIF.DataModels.Converters;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace MDD4All.SpecIF.DataModels
 {
-    [JsonConverter(typeof(AlternativeIdConverter))]
     public class AlternativeId : SpecIfElement
     {
-        [JsonIgnore]
-        public List<AlternativeIdReference> alternativeIdReferences { get; set; } = new List<AlternativeIdReference>();
+        /// <summary>
+        /// ID used in JSON
+        /// </summary>
+        [JsonProperty(PropertyName = "id", Order = -101)]
+        [BsonElement("id")]
+        public string ID { get; set; }
 
+        [JsonProperty(PropertyName = "revision", Order = -100)]
+        [BsonElement("revision")]
+        public string Revision { get; set; }
+
+        [JsonProperty(PropertyName = "project", Order = -101)]
+        [BsonElement("project")]
+        public string Project { get; set; }
     }
 }

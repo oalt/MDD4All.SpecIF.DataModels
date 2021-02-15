@@ -1,8 +1,9 @@
-﻿using MongoDB.Bson;
+﻿/*
+ * Copyright (c) MDD4All.de, Dr. Oliver Alt
+ */
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MDD4All.SpecIF.DataModels.RightsManagement
 {

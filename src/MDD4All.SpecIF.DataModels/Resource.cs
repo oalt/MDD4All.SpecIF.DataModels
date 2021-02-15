@@ -5,7 +5,6 @@ using MDD4All.SpecIF.DataModels.BaseTypes;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace MDD4All.SpecIF.DataModels
 {
