@@ -22,16 +22,7 @@ namespace MDD4All.SpecIF.DataModels
             Title = new Value(title);
 
             PropertyClass = new Key(classID.ID, classID.Revision);
-            Value = new Value
-            {
-                LanguageValues = new List<LanguageValue>
-                {
-                    new LanguageValue
-                    {
-                        Text = value
-                    }
-                }
-            };
+			Value = value;
 
             ID = id;
 
