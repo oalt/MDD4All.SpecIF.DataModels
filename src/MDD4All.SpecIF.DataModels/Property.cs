@@ -10,38 +10,51 @@ using System.Collections.Generic;
 
 namespace MDD4All.SpecIF.DataModels
 {
-	public class Property : SpecIfBaseElement
+	public class Property : SpecIfElement
 	{
 		public Property()
 		{
-			Value = new Value();
 		}
 
-        public Property(string title, Key classID, string value, string id, DateTime changedAt, string changedBy)
+		public Property(Key propertyClass, string singleValue)
         {
-            Title = new Value(title);
+			Class = propertyClass;
+			Value value = new Value(singleValue);
 
-            PropertyClass = new Key(classID.ID, classID.Revision);
-			Value = value;
+			Values.Add(value);
+        }
 
-            ID = id;
-
-            Revision = SpecIfGuidGenerator.CreateNewRevsionGUID();
-
-            ChangedAt = changedAt;
-            ChangedBy = changedBy;
+        public Property(Key classID, List<Value> values)
+        {    
+            Class = new Key(classID.ID, classID.Revision);
+			Values = values;
         }
 
 		[JsonProperty(PropertyName = "class", Order = -95)]
 		[BsonElement("class")]
-		public Key PropertyClass { get; set; }
+		public Key Class { get; set; }
 
-		[JsonProperty(PropertyName = "value", Order = -97)]
-		[BsonElement("value")]
-		public object Value
-		{
-			get; set;
-		}
+		[JsonProperty(PropertyName = "values", Order = -97)]
+		[BsonElement("values")]
+		public List<Value> Values { get; set; } = new List<Value>();
 			
+		[JsonIgnore]
+		[BsonIgnore]
+		public string Value
+        {
+			set
+            {
+				Value v = new Value(value);
+
+				if(Values.Count > 0)
+                {
+					Values[0] = v;
+                }
+				else
+                {
+					Values.Add(v);
+                }
+            }
+        }
 	}
 }

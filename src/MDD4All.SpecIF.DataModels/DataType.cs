@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace MDD4All.SpecIF.DataModels
 {
-	public class DataType : SpecIfBaseElement
+	public class DataType : TypeDefinitionBase
 	{		
 		[JsonProperty(PropertyName = "type")]
 		[BsonElement("type")]
@@ -33,7 +33,7 @@ namespace MDD4All.SpecIF.DataModels
 
 		[JsonProperty(PropertyName = "values")]
 		[BsonElement("values")]
-		public List<EnumValue> Values { get; set; }
+		public List<EnumerationValue> Values { get; set; }
 
 		/// <summary>
 		/// Optional use by dataType 'xs:enumeration'. Indicates whether multiple values can be chosen; 

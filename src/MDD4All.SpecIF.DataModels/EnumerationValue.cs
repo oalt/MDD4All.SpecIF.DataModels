@@ -4,13 +4,14 @@
 using MDD4All.SpecIF.DataModels.BaseTypes;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MDD4All.SpecIF.DataModels
 {
 	/// <summary>
 	/// Enumerated Value
 	/// </summary>
-	public class EnumValue : SpecIfElement
+	public class EnumerationValue : SpecIfElement
 	{
 		[JsonProperty(PropertyName = "id")]
 		[BsonElement("id")]
@@ -18,6 +19,6 @@ namespace MDD4All.SpecIF.DataModels
 
 		[JsonProperty(PropertyName = "value")]
 		[BsonElement("value")]
-		public object Value { get; set; }
+		public List<MultilanguageText> Value { get; set; }
 	}
 }

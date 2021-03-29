@@ -19,6 +19,14 @@ namespace MDD4All.SpecIF.DataModels
 			ChangedAt = DateTime.Now;
 		}
 
+		[JsonProperty(PropertyName = "title", Order = -97)]
+		[BsonElement("title")]
+		public List<MultilanguageText> Title { get; set; }
+
+		[JsonProperty(PropertyName = "description", Order = -96)]
+		[BsonElement("description")]
+		public List<MultilanguageText> Description { get; set; }
+
 		[JsonProperty(PropertyName = "resource")]
 		[BsonIgnore]
 		public object ResourceObject

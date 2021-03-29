@@ -13,10 +13,6 @@ namespace MDD4All.SpecIF.DataModels
 		[BsonElement("title")]
 		public string Title { get; set; }
 
-		[JsonProperty(PropertyName = "type")]
-		[BsonElement("type")]
-		public string Type { get; set; }
-
 		[JsonProperty(PropertyName = "url")]
 		[BsonElement("url")]
 		public string URL { get; set; }

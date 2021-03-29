@@ -20,25 +20,25 @@ namespace MDD4All.SpecIF.DataModels.Converters
 		{
 
 			Value value = new Value();
-			value.LanguageValues = new List<LanguageValue>();
+			value.MultilanguageText = new List<MultilanguageText>();
 
             if (reader.ValueType != null)
             {
                 if (reader.ValueType == typeof(string))
                 {
-                    value.SimpleValue = reader.Value.ToString();
+                    value.StringValue = reader.Value.ToString();
                 }
                 else
                 {
                     JArray ja = JArray.Load(reader);
-                    List<LanguageValue> values = ja.ToObject<List<LanguageValue>>();
+                    List<MultilanguageText> values = ja.ToObject<List<MultilanguageText>>();
 
-                    value.LanguageValues = values;
+                    value.MultilanguageText = values;
                 }
             }
             else
             {
-                value.SimpleValue = "";
+                value.StringValue = "";
             }
 			
 			return value;
@@ -48,20 +48,20 @@ namespace MDD4All.SpecIF.DataModels.Converters
 		{
 			Value val = value as Value;
 
-            if (val.SimpleValue != null)
+            if (val.StringValue != null)
             {
-                JToken token = JToken.FromObject(val.SimpleValue);
+                JToken token = JToken.FromObject(val.StringValue);
 
                 token.WriteTo(writer);
             }
             else
             {
 
-                if (val.LanguageValues != null)
+                if (val.MultilanguageText != null)
                 {
-                    if (val.LanguageValues.Count == 1 && val.LanguageValues[0].Language == null)
+                    if (val.MultilanguageText.Count == 1 && val.MultilanguageText[0].Language == null)
                     {
-                        JToken token = JToken.FromObject(val.LanguageValues[0].Text);
+                        JToken token = JToken.FromObject(val.MultilanguageText[0].Text);
 
                         token.WriteTo(writer);
                     }
@@ -71,7 +71,7 @@ namespace MDD4All.SpecIF.DataModels.Converters
 
                         JArray array = new JArray();
 
-                        foreach (LanguageValue languageValue in val.LanguageValues)
+                        foreach (MultilanguageText languageValue in val.MultilanguageText)
                         {
                             array.Add(JToken.FromObject(languageValue));
                         }

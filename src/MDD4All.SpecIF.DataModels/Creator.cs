@@ -23,6 +23,6 @@ namespace MDD4All.SpecIF.DataModels
 
 		[JsonProperty(PropertyName = "email")]
 		[BsonElement("email")]
-		public Email Email { get; set; }
+		public string Email { get; set; }
 	}
 }

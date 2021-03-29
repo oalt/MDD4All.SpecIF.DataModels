@@ -19,7 +19,7 @@ namespace MDD4All.SpecIF.DataModels
 
 		public Value(string value)
 		{
-            SimpleValue = value;
+            StringValue = value;
 		}
 
         public static string ToSimpleTextString(object value)
@@ -37,26 +37,26 @@ namespace MDD4All.SpecIF.DataModels
             return result;
         }
 
-		[BsonElement("languageValues")]
+		[BsonElement("multilanguageText")]
         [JsonIgnore]
-		public List<LanguageValue> LanguageValues { get; set; } = new List<LanguageValue>();
+		public List<MultilanguageText> MultilanguageText { get; set; } = new List<MultilanguageText>();
 
         [BsonElement("simpleValue")]
         [JsonIgnore]
-        public string SimpleValue { get; set; } = null;
+        public string StringValue { get; set; } = null;
 
 
 		public string ToSimpleTextString()
 		{
 			string result = "";
 
-            if(SimpleValue != null)
+            if(StringValue != null)
             {
-                result = SimpleValue;
+                result = StringValue;
             }
-            else if(LanguageValues.Count > 0)
+            else if(MultilanguageText.Count > 0)
 			{
-				result = LanguageValues[0].Text;
+				result = MultilanguageText[0].Text;
 			}
 
 			return result;

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace MDD4All.SpecIF.DataModels
 {
-	public class ResourceClass : SpecIfBaseElement
+	public class ResourceClass : TypeDefinitionBase
 	{
 		[JsonProperty(PropertyName = "extends")]
 		[BsonElement("extends")]
