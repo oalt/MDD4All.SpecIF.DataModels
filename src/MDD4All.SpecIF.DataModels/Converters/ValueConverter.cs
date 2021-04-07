@@ -54,40 +54,19 @@ namespace MDD4All.SpecIF.DataModels.Converters
 
                 token.WriteTo(writer);
             }
-            else
-            {
+            else if (val.MultilanguageText != null)
+            { 
+                JArray array = new JArray();
 
-                if (val.MultilanguageText != null)
+                foreach (MultilanguageText languageValue in val.MultilanguageText)
                 {
-                    if (val.MultilanguageText.Count == 1 && val.MultilanguageText[0].Language == null)
-                    {
-                        JToken token = JToken.FromObject(val.MultilanguageText[0].Text);
-
-                        token.WriteTo(writer);
-                    }
-                    else
-                    {
-
-
-                        JArray array = new JArray();
-
-                        foreach (MultilanguageText languageValue in val.MultilanguageText)
-                        {
-                            array.Add(JToken.FromObject(languageValue));
-                        }
-
-                        array.WriteTo(writer);
-                    }
-                }
-                else
-                {
-                    JToken token = JToken.FromObject("");
-
-                    token.WriteTo(writer);
+                    array.Add(JToken.FromObject(languageValue));
                 }
 
+                array.WriteTo(writer);
+                    
             }
-
 		}
+
 	}
 }

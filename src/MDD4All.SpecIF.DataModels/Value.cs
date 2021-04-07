@@ -22,7 +22,12 @@ namespace MDD4All.SpecIF.DataModels
             StringValue = value;
 		}
 
-        public static string ToSimpleTextString(object value)
+		public Value(MultilanguageText value)
+		{
+			MultilanguageText.Add(value);
+		}
+
+		public static string ToSimpleTextString(object value)
         {
             string result = "";
             if(value is string)

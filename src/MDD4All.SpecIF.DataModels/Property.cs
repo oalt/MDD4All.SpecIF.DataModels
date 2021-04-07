@@ -30,11 +30,11 @@ namespace MDD4All.SpecIF.DataModels
 			Values = values;
         }
 
-		[JsonProperty(PropertyName = "class", Order = -95)]
+		[JsonProperty(PropertyName = "class", Order = -97)]
 		[BsonElement("class")]
 		public Key Class { get; set; }
 
-		[JsonProperty(PropertyName = "values", Order = -97)]
+		[JsonProperty(PropertyName = "values", Order = -95)]
 		[BsonElement("values")]
 		public List<Value> Values { get; set; } = new List<Value>();
 			
