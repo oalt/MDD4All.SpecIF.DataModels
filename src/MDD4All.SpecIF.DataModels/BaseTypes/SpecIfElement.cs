@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 
 namespace MDD4All.SpecIF.DataModels.BaseTypes
 {
-	public class SpecIfElement
-	{
-		[JsonIgnore]
-		[BsonIgnore]
-		public ISpecIfServiceDescription DataSource { get; set; }
-	}
+    public class SpecIfElement
+    {
+        [JsonIgnore]
+        [BsonIgnore]
+        public ISpecIfServiceDescription DataSource { get; set; }
+    }
 }

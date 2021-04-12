@@ -9,40 +9,40 @@ using Newtonsoft.Json;
 
 namespace MDD4All.SpecIF.DataModels
 {
-	[JsonConverter(typeof(KeyConverter))]
-	public class Key : SpecIfElement
-	{
-		public Key()
-		{
-		}
+    [JsonConverter(typeof(KeyConverter))]
+    public class Key : SpecIfElement
+    {
+        public Key()
+        {
+        }
 
-		public Key(string id)
-		{
-			ID = id;
+        public Key(string id)
+        {
+            ID = id;
             Revision = SpecIfGuidGenerator.CreateNewSpecIfGUID();
         }
 
-		public Key(string id, string revision) 
-		{
-			ID = id;
-			Revision = revision;
-		}
+        public Key(string id, string revision)
+        {
+            ID = id;
+            Revision = revision;
+        }
 
-		[JsonProperty(PropertyName = "id")]
-		[BsonElement("id")]
-		public string ID { get; set; } = "";
+        [JsonProperty(PropertyName = "id")]
+        [BsonElement("id")]
+        public string ID { get; set; } = "";
 
-		[JsonProperty(PropertyName = "revision")]
-		[BsonElement("revision")]
-		public string Revision { get; set; } = SpecIfGuidGenerator.CreateNewSpecIfGUID();
+        [JsonProperty(PropertyName = "revision")]
+        [BsonElement("revision")]
+        public string Revision { get; set; } = SpecIfGuidGenerator.CreateNewSpecIfGUID();
 
-		public override string ToString()
-		{
-			string result = "";
+        public override string ToString()
+        {
+            string result = "";
 
-			result += ID + "_" + Revision;
+            result += ID + "_" + Revision;
 
-			return result;
-		}
-	}
+            return result;
+        }
+    }
 }

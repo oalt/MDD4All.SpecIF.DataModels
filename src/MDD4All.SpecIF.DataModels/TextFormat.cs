@@ -1,4 +1,7 @@
-﻿namespace MDD4All.SpecIF.DataModels
+﻿/*
+ * Copyright (c) MDD4All.de, Dr. Oliver Alt
+ */
+namespace MDD4All.SpecIF.DataModels
 {
     public class TextFormat
     {

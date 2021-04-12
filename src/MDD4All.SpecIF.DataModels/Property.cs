@@ -10,70 +10,70 @@ using System.Collections.Generic;
 
 namespace MDD4All.SpecIF.DataModels
 {
-	public class Property : SpecIfElement
-	{
-		public Property()
-		{
-		}
-
-		public Property(Key propertyClass, string singleValue)
+    public class Property : SpecIfElement
+    {
+        public Property()
         {
-			Class = propertyClass;
-			Value value = new Value(singleValue);
+        }
 
-			Values.Add(value);
+        public Property(Key propertyClass, string singleValue)
+        {
+            Class = propertyClass;
+            Value value = new Value(singleValue);
+
+            Values.Add(value);
         }
 
         public Property(Key classID, List<Value> values)
-        {    
+        {
             Class = new Key(classID.ID, classID.Revision);
-			Values = values;
+            Values = values;
         }
 
-		[JsonProperty(PropertyName = "class", Order = -97)]
-		[BsonElement("class")]
-		public Key Class { get; set; }
+        [JsonProperty(PropertyName = "class", Order = -97)]
+        [BsonElement("class")]
+        public Key Class { get; set; }
 
-		[JsonProperty(PropertyName = "values", Order = -95)]
-		[BsonElement("values")]
-		public List<Value> Values { get; set; } = new List<Value>();
-			
-		[JsonIgnore]
-		[BsonIgnore]
-		public string Value
+        [JsonProperty(PropertyName = "values", Order = -95)]
+        [BsonElement("values")]
+        public List<Value> Values { get; set; } = new List<Value>();
+
+        [JsonIgnore]
+        [BsonIgnore]
+        public string Value
         {
-			set
+            set
             {
-				Value v = new Value(new MultilanguageText(value));
+                Value v = new Value(new MultilanguageText(value));
 
-				if(Values.Count > 0)
+                if (Values.Count > 0)
                 {
-					Values[0] = v;
+                    Values[0] = v;
                 }
-				else
+                else
                 {
-					Values.Add(v);
+                    Values.Add(v);
                 }
             }
         }
 
-		[JsonIgnore]
-		[BsonIgnore]
-		public MultilanguageText MultilanguageValue
-		{
-			set
-			{
-				Value v = new Value(value);
+        [JsonIgnore]
+        [BsonIgnore]
+        public MultilanguageText MultilanguageValue
+        {
+            set
+            {
+                Value v = new Value(value);
 
-				if (Values.Count > 0)
-				{
-					Values[0] = v;
-				}
-				else
-				{
-					Values.Add(v);
-				}
-			}
-		}
-	}
+                if (Values.Count > 0)
+                {
+                    Values[0] = v;
+                }
+                else
+                {
+                    Values.Add(v);
+                }
+            }
+        }
+    }
 }

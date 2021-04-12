@@ -8,17 +8,17 @@ using System.Collections.Generic;
 
 namespace MDD4All.SpecIF.DataModels
 {
-	/// <summary>
-	/// Enumerated Value
-	/// </summary>
-	public class EnumerationValue : SpecIfElement
-	{
-		[JsonProperty(PropertyName = "id")]
-		[BsonElement("id")]
-		public string ID { get; set; }
+    /// <summary>
+    /// Enumerated Value
+    /// </summary>
+    public class EnumerationValue : SpecIfElement
+    {
+        [JsonProperty(PropertyName = "id")]
+        [BsonElement("id")]
+        public string ID { get; set; }
 
-		[JsonProperty(PropertyName = "value")]
-		[BsonElement("value")]
-		public List<MultilanguageText> Value { get; set; }
-	}
+        [JsonProperty(PropertyName = "value")]
+        [BsonElement("value")]
+        public List<MultilanguageText> Value { get; set; }
+    }
 }
