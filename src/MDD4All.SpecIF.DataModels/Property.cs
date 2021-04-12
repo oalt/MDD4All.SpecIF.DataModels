@@ -44,7 +44,7 @@ namespace MDD4All.SpecIF.DataModels
         {
 			set
             {
-				Value v = new Value(value);
+				Value v = new Value(new MultilanguageText(value));
 
 				if(Values.Count > 0)
                 {
@@ -56,5 +56,24 @@ namespace MDD4All.SpecIF.DataModels
                 }
             }
         }
+
+		[JsonIgnore]
+		[BsonIgnore]
+		public MultilanguageText MultilanguageValue
+		{
+			set
+			{
+				Value v = new Value(value);
+
+				if (Values.Count > 0)
+				{
+					Values[0] = v;
+				}
+				else
+				{
+					Values.Add(v);
+				}
+			}
+		}
 	}
 }
