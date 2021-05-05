@@ -10,123 +10,131 @@ using System.Collections.Generic;
 
 namespace MDD4All.SpecIF.DataModels
 {
-	public class Node : SpecIfBaseElement
-	{
-		
-		public Node() : base()
-		{
-			Nodes = new List<Node>();
-			ChangedAt = DateTime.Now;
-		}
+    public class Node : SpecIfBaseElement
+    {
 
-		[JsonProperty(PropertyName = "resource")]
-		[BsonIgnore]
-		public object ResourceObject
-		{
-			get
-			{
-				return JObject.FromObject(_resourceReference);
-			}
+        public Node() : base()
+        {
+            Nodes = new List<Node>();
+            ChangedAt = DateTime.Now;
+        }
 
-			set
-			{
-				if(value is string)
-				{
-					_resourceReference.ID = value as string;
-				}
-				else if(value is JObject)
-				{
-					JObject resourceJObject = value as JObject;
+        [JsonProperty(PropertyName = "title", Order = -97)]
+        [BsonElement("title")]
+        public List<MultilanguageText> Title { get; set; }
 
-					_resourceReference = new Key()
-					{
-						ID = resourceJObject["id"].ToString(),
-						Revision = resourceJObject["revision"].ToString()
-					};
-				}
-                else if(value is Key)
+        [JsonProperty(PropertyName = "description", Order = -96)]
+        [BsonElement("description")]
+        public List<MultilanguageText> Description { get; set; }
+
+        [JsonProperty(PropertyName = "resource")]
+        [BsonIgnore]
+        public object ResourceObject
+        {
+            get
+            {
+                return JObject.FromObject(_resourceReference);
+            }
+
+            set
+            {
+                if (value is string)
+                {
+                    _resourceReference.ID = value as string;
+                }
+                else if (value is JObject)
+                {
+                    JObject resourceJObject = value as JObject;
+
+                    _resourceReference = new Key()
+                    {
+                        ID = resourceJObject["id"].ToString(),
+                        Revision = resourceJObject["revision"].ToString()
+                    };
+                }
+                else if (value is Key)
                 {
                     _resourceReference = value as Key;
                 }
-				
-			}
-		}
 
-		[JsonIgnore]
-		[BsonIgnore]
-		public string ResourceString
-		{
-			get
-			{
-				return _resourceReference.ID;
-			}
+            }
+        }
 
-			set
-			{
-				_resourceReference.ID = value;
-				//_resourceReference.Revision = Key.LATEST_REVISION;
-			}
-		}
+        [JsonIgnore]
+        [BsonIgnore]
+        public string ResourceString
+        {
+            get
+            {
+                return _resourceReference.ID;
+            }
 
-		private Key _resourceReference = new Key() { ID = "" };
+            set
+            {
+                _resourceReference.ID = value;
+                //_resourceReference.Revision = Key.LATEST_REVISION;
+            }
+        }
 
-		[JsonIgnore]
-		[BsonElement("resource")]
-		public Key ResourceReference
-		{
-			get
-			{
-				return _resourceReference;
-			}
+        private Key _resourceReference = new Key() { ID = "" };
 
-			set
-			{
-				_resourceReference = value;				
-			}
-		}
+        [JsonIgnore]
+        [BsonElement("resource")]
+        public Key ResourceReference
+        {
+            get
+            {
+                return _resourceReference;
+            }
 
-		[JsonIgnore]
-		[BsonElement("isHierarchyRoot")]
-		public bool IsHierarchyRoot { get; set; } = false;
+            set
+            {
+                _resourceReference = value;
+            }
+        }
 
-		[JsonProperty(PropertyName = "nodes")]
-		[BsonIgnore]
-		public List<Node> Nodes { get; set; }
+        [JsonIgnore]
+        [BsonElement("isHierarchyRoot")]
+        public bool IsHierarchyRoot { get; set; } = false;
 
-		private List<Key> _nodeReferences = new List<Key>();
+        [JsonProperty(PropertyName = "nodes")]
+        [BsonIgnore]
+        public List<Node> Nodes { get; set; }
 
-		[JsonIgnore]
-		[BsonElement("nodes")]
-		public List<Key> NodeReferences
-		{
-			get
-			{
-				List<Key> result = new List<Key>();
+        private List<Key> _nodeReferences = new List<Key>();
 
-				if (Nodes != null && Nodes.Count > 0)
-				{
-					foreach (Node node in Nodes)
-					{
-						Key nodeReference = new Key()
-						{
-							ID = node.ID,
-							Revision = node.Revision
-						};
+        [JsonIgnore]
+        [BsonElement("nodes")]
+        public List<Key> NodeReferences
+        {
+            get
+            {
+                List<Key> result = new List<Key>();
 
-						result.Add(nodeReference);
-					}
-				}
-				else
-				{
-					result = _nodeReferences;
-				}
-				return result;
-			}
+                if (Nodes != null && Nodes.Count > 0)
+                {
+                    foreach (Node node in Nodes)
+                    {
+                        Key nodeReference = new Key()
+                        {
+                            ID = node.ID,
+                            Revision = node.Revision
+                        };
 
-			set
-			{
-				_nodeReferences = value;
-			}
-		}
-	}
+                        result.Add(nodeReference);
+                    }
+                }
+                else
+                {
+                    result = _nodeReferences;
+                }
+                return result;
+            }
+
+            set
+            {
+                _nodeReferences = value;
+            }
+        }
+    }
 }

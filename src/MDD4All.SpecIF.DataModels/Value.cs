@@ -9,27 +9,32 @@ using System.Collections.Generic;
 
 namespace MDD4All.SpecIF.DataModels
 {
-	[JsonConverter(typeof(ValueConverter))]
+    [JsonConverter(typeof(ValueConverter))]
     public class Value : SpecIfElement
-	{
-		public Value()
-		{
-			 
-		}
+    {
+        public Value()
+        {
 
-		public Value(string value)
-		{
-            SimpleValue = value;
-		}
+        }
+
+        public Value(string value)
+        {
+            StringValue = value;
+        }
+
+        public Value(MultilanguageText value)
+        {
+            MultilanguageText.Add(value);
+        }
 
         public static string ToSimpleTextString(object value)
         {
             string result = "";
-            if(value is string)
+            if (value is string)
             {
                 result = (string)value;
             }
-            else if(value is object[])
+            else if (value is object[])
             {
 
             }
@@ -37,34 +42,34 @@ namespace MDD4All.SpecIF.DataModels
             return result;
         }
 
-		[BsonElement("languageValues")]
+        [BsonElement("multilanguageText")]
         [JsonIgnore]
-		public List<LanguageValue> LanguageValues { get; set; } = new List<LanguageValue>();
+        public List<MultilanguageText> MultilanguageText { get; set; } = new List<MultilanguageText>();
 
         [BsonElement("simpleValue")]
         [JsonIgnore]
-        public string SimpleValue { get; set; } = null;
+        public string StringValue { get; set; } = null;
 
 
-		public string ToSimpleTextString()
-		{
-			string result = "";
+        public string ToSimpleTextString()
+        {
+            string result = "";
 
-            if(SimpleValue != null)
+            if (StringValue != null)
             {
-                result = SimpleValue;
+                result = StringValue;
             }
-            else if(LanguageValues.Count > 0)
-			{
-				result = LanguageValues[0].Text;
-			}
+            else if (MultilanguageText.Count > 0)
+            {
+                result = MultilanguageText[0].Text;
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		public override string ToString()
-		{
-			return ToSimpleTextString();
-		}
-	}
+        public override string ToString()
+        {
+            return ToSimpleTextString();
+        }
+    }
 }

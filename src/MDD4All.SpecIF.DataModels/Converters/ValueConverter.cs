@@ -10,84 +10,63 @@ using System.Text;
 namespace MDD4All.SpecIF.DataModels.Converters
 {
     public class ValueConverter : JsonConverter
-	{
-		public override bool CanConvert(Type objectType)
-		{
-			return (objectType == typeof(Value));
-		}
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return (objectType == typeof(Value));
+        }
 
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-		{
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
 
-			Value value = new Value();
-			value.LanguageValues = new List<LanguageValue>();
+            Value value = new Value();
+            value.MultilanguageText = new List<MultilanguageText>();
 
             if (reader.ValueType != null)
             {
                 if (reader.ValueType == typeof(string))
                 {
-                    value.SimpleValue = reader.Value.ToString();
+                    value.StringValue = reader.Value.ToString();
                 }
                 else
                 {
                     JArray ja = JArray.Load(reader);
-                    List<LanguageValue> values = ja.ToObject<List<LanguageValue>>();
+                    List<MultilanguageText> values = ja.ToObject<List<MultilanguageText>>();
 
-                    value.LanguageValues = values;
+                    value.MultilanguageText = values;
                 }
             }
             else
             {
-                value.SimpleValue = "";
+                value.StringValue = "";
             }
-			
-			return value;
-		}
 
-		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-		{
-			Value val = value as Value;
+            return value;
+        }
 
-            if (val.SimpleValue != null)
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            Value val = value as Value;
+
+            if (val.StringValue != null)
             {
-                JToken token = JToken.FromObject(val.SimpleValue);
+                JToken token = JToken.FromObject(val.StringValue);
 
                 token.WriteTo(writer);
             }
-            else
+            else if (val.MultilanguageText != null)
             {
+                JArray array = new JArray();
 
-                if (val.LanguageValues != null)
+                foreach (MultilanguageText languageValue in val.MultilanguageText)
                 {
-                    if (val.LanguageValues.Count == 1 && val.LanguageValues[0].Language == null)
-                    {
-                        JToken token = JToken.FromObject(val.LanguageValues[0].Text);
-
-                        token.WriteTo(writer);
-                    }
-                    else
-                    {
-
-
-                        JArray array = new JArray();
-
-                        foreach (LanguageValue languageValue in val.LanguageValues)
-                        {
-                            array.Add(JToken.FromObject(languageValue));
-                        }
-
-                        array.WriteTo(writer);
-                    }
+                    array.Add(JToken.FromObject(languageValue));
                 }
-                else
-                {
-                    JToken token = JToken.FromObject("");
 
-                    token.WriteTo(writer);
-                }
+                array.WriteTo(writer);
 
             }
+        }
 
-		}
-	}
+    }
 }

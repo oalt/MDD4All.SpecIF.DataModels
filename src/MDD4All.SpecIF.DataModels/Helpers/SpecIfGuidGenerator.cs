@@ -10,14 +10,14 @@ namespace MDD4All.SpecIF.DataModels.Helpers
 {
     public class SpecIfGuidGenerator
     {
-		public static string CreateNewSpecIfGUID()
-		{
-			string result = "";
+        public static string CreateNewSpecIfGUID()
+        {
+            string result = "";
 
-			result = "_" + Guid.NewGuid().ToString().Replace("{", "").Replace("}", "").Replace("-", "_");
+            result = "_" + Guid.NewGuid().ToString().Replace("{", "").Replace("}", "").Replace("-", "_");
 
-			return result;
-		}
+            return result;
+        }
 
         public static string CreateNewRevsionGUID()
         {

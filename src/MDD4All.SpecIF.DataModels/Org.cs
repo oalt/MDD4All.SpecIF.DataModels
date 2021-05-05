@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 
 namespace MDD4All.SpecIF.DataModels
 {
-	public class Org : SpecIfElement
-	{
-		[JsonProperty(PropertyName = "organizationName")]
-		[BsonElement("organizationName")]
-		public string OrganizationName { get; set; }
-	}
+    public class Org : SpecIfElement
+    {
+        [JsonProperty(PropertyName = "organizationName")]
+        [BsonElement("organizationName")]
+        public string OrganizationName { get; set; }
+    }
 }

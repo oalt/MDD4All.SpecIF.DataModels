@@ -7,7 +7,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using System;
-
+using System.Collections.Generic;
 
 namespace MDD4All.SpecIF.DataModels
 {
@@ -44,16 +44,13 @@ namespace MDD4All.SpecIF.DataModels
         public string ID { get; set; } = SpecIfGuidGenerator.CreateNewSpecIfGUID();
 
         [JsonProperty(PropertyName = "title", Order = 3)]
-        public object Title { get; set; } = "";
+        public List<MultilanguageText> Title { get; set; } = new List<MultilanguageText>();
 
         [JsonProperty(PropertyName = "description", Order = 4)]
-        public object Description { get; set; }
+        public List<MultilanguageText> Description { get; set; }
 
         [JsonProperty(PropertyName = "isExtension", Order = 5)]
         public bool IsExtension { get; set; } = false;
-
-        //[JsonProperty(PropertyName = "specifVersion", Order = 6)]
-        //public string SpecifVersion { get; set; } = "1.0";
 
         [JsonProperty(PropertyName = "generator", Order = 7)]
         public string Generator { get; set; }

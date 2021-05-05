@@ -9,79 +9,79 @@ using System.Diagnostics;
 namespace MDD4All.SpecIF.DataModels.Converters
 {
     public class KeyConverter : JsonConverter
-	{
-		public override bool CanConvert(Type objectType)
-		{
-			return (objectType == typeof(Key) || objectType == typeof(string));
-		}
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return (objectType == typeof(Key) || objectType == typeof(string));
+        }
 
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-		{
-			Key result = new Key();
-			
-			if (reader.ValueType == typeof(string))
-			{
-				result.ID = reader.Value.ToString();
-				result.Revision = null;
-			}
-			else
-			{
-				try
-				{
-					var val = reader.Value;
-					JObject keyJObject = JObject.Load(reader);
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            Key result = new Key();
 
-					result.ID = keyJObject["id"].ToString();
-					result.Revision = keyJObject["revision"].ToString();
-				}
-				catch(Exception exception)
+            if (reader.ValueType == typeof(string))
+            {
+                result.ID = reader.Value.ToString();
+                result.Revision = null;
+            }
+            else
+            {
+                try
                 {
-					Debug.WriteLine(exception);
+                    var val = reader.Value;
+                    JObject keyJObject = JObject.Load(reader);
+
+                    result.ID = keyJObject["id"].ToString();
+                    result.Revision = keyJObject["revision"].ToString();
                 }
-			}
-			
-			return result;
-		}
+                catch (Exception exception)
+                {
+                    Debug.WriteLine(exception);
+                }
+            }
 
-		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-		{
-			//Console.WriteLine("Type = " + value.GetType().ToString());
+            return result;
+        }
 
-			//Console.WriteLine("Value = " + value.ToString());
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            //Console.WriteLine("Type = " + value.GetType().ToString());
 
-			if (value is Key)
-			{
-				
-				Key key = value as Key;
+            //Console.WriteLine("Value = " + value.ToString());
 
-				//Console.WriteLine("value is key. " + key.ID + " " + key.Revision);
-				
+            if (value is Key)
+            {
 
-				try
-				{
+                Key key = value as Key;
 
-					JObject keyJObject = new JObject();
+                //Console.WriteLine("value is key. " + key.ID + " " + key.Revision);
 
-					keyJObject.Add("id", JToken.FromObject(key.ID));
-					keyJObject.Add("revision", JToken.FromObject(key.Revision));
 
-					keyJObject.WriteTo(writer);
-				}
-				catch(Exception exception)
-				{
-					Console.WriteLine("id=" + key.ID);
-					Console.WriteLine("revision=" + key.Revision);
-					Console.WriteLine(exception);
-				}
-			}
-			else if (value is string)
-			{
-				Key key = new Key((string)value, null);
+                try
+                {
 
-				JToken token = JToken.FromObject(key);
+                    JObject keyJObject = new JObject();
 
-				token.WriteTo(writer);
-			}
-		}
-	}
+                    keyJObject.Add("id", JToken.FromObject(key.ID));
+                    keyJObject.Add("revision", JToken.FromObject(key.Revision));
+
+                    keyJObject.WriteTo(writer);
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine("id=" + key.ID);
+                    Console.WriteLine("revision=" + key.Revision);
+                    Console.WriteLine(exception);
+                }
+            }
+            else if (value is string)
+            {
+                Key key = new Key((string)value, null);
+
+                JToken token = JToken.FromObject(key);
+
+                token.WriteTo(writer);
+            }
+        }
+    }
 }
