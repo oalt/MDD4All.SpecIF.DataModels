@@ -31,12 +31,12 @@ namespace MDD4All.SpecIF.DataModels
         [BsonElement("maxInclusive")]
         public int? MaxInclusive { get; set; }
 
-        [JsonProperty(PropertyName = "values")]
-        [BsonElement("values")]
-        public List<EnumerationValue> Values { get; set; }
+        [JsonProperty(PropertyName = "enumeration")]
+        [BsonElement("enumeration")]
+        public List<EnumerationValue> Enumeration { get; set; }
 
         /// <summary>
-        /// Optional use by dataType 'xs:enumeration'. Indicates whether multiple values can be chosen; 
+        /// Optional use to indicates whether multiple values can be chosen; 
         /// by default the value is 'false'.
         /// </summary>
         [JsonProperty(PropertyName = "multiple")]
