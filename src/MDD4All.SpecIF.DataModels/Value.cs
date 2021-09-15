@@ -6,6 +6,7 @@ using MDD4All.SpecIF.DataModels.Converters;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MDD4All.SpecIF.DataModels
 {
@@ -51,7 +52,7 @@ namespace MDD4All.SpecIF.DataModels
         public string StringValue { get; set; } = null;
 
 
-        public string ToSimpleTextString()
+        public string ToSimpleTextString(string language = "en")
         {
             string result = "";
 
@@ -61,7 +62,18 @@ namespace MDD4All.SpecIF.DataModels
             }
             else if (MultilanguageText.Count > 0)
             {
-                result = MultilanguageText[0].Text;
+                try
+                {
+                    result = MultilanguageText.First(mlt => mlt.Language == language).Text;
+
+                    if (result == null)
+                    {
+                        result = MultilanguageText[0].Text;
+                    }
+                }
+                catch
+                { }
+                
             }
 
             return result;
@@ -70,6 +82,11 @@ namespace MDD4All.SpecIF.DataModels
         public override string ToString()
         {
             return ToSimpleTextString();
+        }
+
+        public string ToString(string language)
+        {
+            return ToSimpleTextString(language);
         }
     }
 }
