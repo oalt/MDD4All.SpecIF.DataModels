@@ -22,23 +22,16 @@ namespace MDD4All.SpecIF.DataModels.Converters
             Value value = new Value();
             value.MultilanguageText = new List<MultilanguageText>();
 
-            if (reader.ValueType != null)
+            switch (reader.TokenType)
             {
-                if (reader.ValueType == typeof(string))
-                {
-                    value.StringValue = reader.Value.ToString();
-                }
-                else
-                {
-                    JArray ja = JArray.Load(reader);
-                    List<MultilanguageText> values = ja.ToObject<List<MultilanguageText>>();
-
-                    value.MultilanguageText = values;
-                }
-            }
-            else
-            {
-                value.StringValue = "";
+                case JsonToken.String:
+                    string stringValue = serializer.Deserialize<string>(reader);
+                    value.StringValue = stringValue;
+                    break;
+                case JsonToken.StartArray:
+                    List<MultilanguageText> arrayValue = serializer.Deserialize<List<MultilanguageText>>(reader);
+                    value.MultilanguageText = arrayValue;
+                    break;
             }
 
             return value;
