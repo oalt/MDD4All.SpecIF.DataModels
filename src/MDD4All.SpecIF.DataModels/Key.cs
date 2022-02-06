@@ -40,7 +40,7 @@ namespace MDD4All.SpecIF.DataModels
         {
             string result = "";
 
-            result += ID + "_" + Revision;
+            result += ID + "_R_" + Revision;
 
             return result;
         }
