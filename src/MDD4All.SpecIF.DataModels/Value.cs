@@ -51,6 +51,25 @@ namespace MDD4All.SpecIF.DataModels
         [JsonIgnore]
         public string StringValue { get; set; } = null;
 
+        [BsonIgnore]
+        [JsonIgnore]
+        public bool IsStringValue
+        {
+            get
+            {
+                return StringValue != null;
+            }
+        }
+
+        [BsonIgnore]
+        [JsonIgnore]
+        public bool IsMultilanguageValue
+        {
+            get
+            {
+                return !(MultilanguageText == null || MultilanguageText.Count == 0);
+            }
+        }
 
         public string ToSimpleTextString(string language = "en")
         {
