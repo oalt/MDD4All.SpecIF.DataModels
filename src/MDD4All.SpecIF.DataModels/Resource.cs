@@ -13,15 +13,15 @@ namespace MDD4All.SpecIF.DataModels
     /// </summary>
     public class Resource : SpecIfBaseElement
     {
-        [JsonProperty(PropertyName = "class", Order = -95)]
+        [JsonProperty(PropertyName = "class", Order = -98)]
         [BsonElement("class")]
         public Key Class { get; set; }
 
-        [JsonProperty(PropertyName = "properties", Order = -93)]
+        [JsonProperty(PropertyName = "properties", Order = -60)]
         [BsonElement("properties")]
         public List<Property> Properties { get; set; } = new List<Property>();
 
-        [JsonProperty(PropertyName = "alternativeIds", Order = -90)]
+        [JsonProperty(PropertyName = "alternativeIds", Order = -97)]
         [BsonElement("alternativeIds")]
         public List<object> AlternativeIDs { get; set; } = new List<object>();
     }

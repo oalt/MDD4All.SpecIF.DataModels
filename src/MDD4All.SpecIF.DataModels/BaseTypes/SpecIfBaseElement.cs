@@ -18,11 +18,11 @@ namespace MDD4All.SpecIF.DataModels.BaseTypes
         [BsonElement("project")]
         public string ProjectID { get; set; }
 
-        [JsonProperty(PropertyName = "changedAt")]
+        [JsonProperty(PropertyName = "changedAt", Order = -96)]
         [BsonElement("changedAt")]
         public DateTime ChangedAt { get; set; }
 
-        [JsonProperty(PropertyName = "changedBy")]
+        [JsonProperty(PropertyName = "changedBy", Order = -95)]
         [BsonElement("changedBy")]
         public string ChangedBy { get; set; }
 
