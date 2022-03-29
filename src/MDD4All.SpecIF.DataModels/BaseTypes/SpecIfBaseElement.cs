@@ -22,7 +22,7 @@ namespace MDD4All.SpecIF.DataModels.BaseTypes
         [BsonElement("changedAt")]
         public DateTime ChangedAt { get; set; }
 
-        [JsonProperty(PropertyName = "changedBy", Order = -95)]
+        [JsonProperty(PropertyName = "changedBy", Order = -95, NullValueHandling = NullValueHandling.Ignore)]
         [BsonElement("changedBy")]
         public string ChangedBy { get; set; }
 

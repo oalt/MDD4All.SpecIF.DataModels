@@ -45,7 +45,7 @@ namespace MDD4All.SpecIF.DataModels.BaseTypes
         [BsonElement("revision")]
         public string Revision { get; set; }
 
-        [JsonProperty(PropertyName = "replaces", Order = -99)]
+        [JsonProperty(PropertyName = "replaces", Order = -99, NullValueHandling = NullValueHandling.Ignore)]
         [BsonElement("replaces")]
         public List<string> Replaces { get; set; } = new List<string>();
 

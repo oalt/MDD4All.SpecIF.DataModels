@@ -21,8 +21,8 @@ namespace MDD4All.SpecIF.DataModels
         [BsonElement("properties")]
         public List<Property> Properties { get; set; } = new List<Property>();
 
-        [JsonProperty(PropertyName = "alternativeIds", Order = -97)]
+        [JsonProperty(PropertyName = "alternativeIds", Order = -97, NullValueHandling = NullValueHandling.Ignore)]
         [BsonElement("alternativeIds")]
-        public List<object> AlternativeIDs { get; set; } = new List<object>();
+        public List<AlternativeId> AlternativeIDs { get; set; } = new List<AlternativeId>();
     }
 }
