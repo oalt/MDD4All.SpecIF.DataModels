@@ -13,19 +13,30 @@ namespace MDD4All.SpecIF.DataModels
     [JsonConverter(typeof(ValueConverter))]
     public class Value : SpecIfElement
     {
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Value()
         {
 
         }
 
+        /// <summary>
+        /// Use this constructor to create a value with a non xs:string data type.
+        /// </summary>
+        /// <param name="value"></param>
         public Value(string value)
         {
             StringValue = value;
         }
 
+        /// <summary>
+        /// Use this constructor to add a value with data type xs:string (MultilanguageText).
+        /// </summary>
+        /// <param name="value"></param>
         public Value(MultilanguageText value)
         {
-            MultilanguageText.Add(value);
+            MultilanguageTexts.Add(value);
         }
 
         public static string ToSimpleTextString(object value)
@@ -43,9 +54,9 @@ namespace MDD4All.SpecIF.DataModels
             return result;
         }
 
-        [BsonElement("multilanguageText")]
+        [BsonElement("multilanguageTexts")]
         [JsonIgnore]
-        public List<MultilanguageText> MultilanguageText { get; set; } = new List<MultilanguageText>();
+        public List<MultilanguageText> MultilanguageTexts { get; set; } = new List<MultilanguageText>();
 
         [BsonElement("simpleValue")]
         [JsonIgnore]
@@ -67,7 +78,7 @@ namespace MDD4All.SpecIF.DataModels
         {
             get
             {
-                return !(MultilanguageText == null || MultilanguageText.Count == 0);
+                return !(MultilanguageTexts == null || MultilanguageTexts.Count == 0);
             }
         }
 
@@ -79,15 +90,15 @@ namespace MDD4All.SpecIF.DataModels
             {
                 result = StringValue;
             }
-            else if (MultilanguageText.Count > 0)
+            else if (MultilanguageTexts.Count > 0)
             {
                 try
                 {
-                    result = MultilanguageText.First(mlt => mlt.Language == language).Text;
+                    result = MultilanguageTexts.First(mlt => mlt.Language == language).Text;
 
                     if (result == null)
                     {
-                        result = MultilanguageText[0].Text;
+                        result = MultilanguageTexts[0].Text;
                     }
                 }
                 catch

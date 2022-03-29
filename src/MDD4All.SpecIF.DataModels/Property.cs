@@ -2,10 +2,8 @@
  * Copyright (c) MDD4All.de, Dr. Oliver Alt
  */
 using MDD4All.SpecIF.DataModels.BaseTypes;
-using MDD4All.SpecIF.DataModels.Helpers;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 
 namespace MDD4All.SpecIF.DataModels
@@ -16,10 +14,20 @@ namespace MDD4All.SpecIF.DataModels
         {
         }
 
-        public Property(Key propertyClass, string singleValue)
+        public Property(Key propertyClass, string singleNonStringValue)
         {
             Class = propertyClass;
-            Value value = new Value(singleValue);
+            Value value = new Value(singleNonStringValue);
+
+            Values.Add(value);
+        }
+
+        public Property(Key propertyClass, MultilanguageText singleStringValue)
+        {
+            Class = propertyClass;
+            Value value = new Value();
+
+            value.MultilanguageTexts.Add(singleStringValue);
 
             Values.Add(value);
         }
@@ -37,43 +45,5 @@ namespace MDD4All.SpecIF.DataModels
         [JsonProperty(PropertyName = "values", Order = -95)]
         [BsonElement("values")]
         public List<Value> Values { get; set; } = new List<Value>();
-
-        [JsonIgnore]
-        [BsonIgnore]
-        public string Value
-        {
-            set
-            {
-                Value v = new Value(new MultilanguageText(value));
-
-                if (Values.Count > 0)
-                {
-                    Values[0] = v;
-                }
-                else
-                {
-                    Values.Add(v);
-                }
-            }
-        }
-
-        [JsonIgnore]
-        [BsonIgnore]
-        public MultilanguageText MultilanguageValue
-        {
-            set
-            {
-                Value v = new Value(value);
-
-                if (Values.Count > 0)
-                {
-                    Values[0] = v;
-                }
-                else
-                {
-                    Values.Add(v);
-                }
-            }
-        }
     }
 }

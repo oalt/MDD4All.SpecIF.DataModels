@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MDD4All.SpecIF.DataModels.Converters
 {
@@ -16,11 +15,13 @@ namespace MDD4All.SpecIF.DataModels.Converters
             return (objectType == typeof(Value));
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, 
+                                        Type objectType, 
+                                        object existingValue, 
+                                        JsonSerializer serializer)
         {
 
             Value value = new Value();
-            value.MultilanguageText = new List<MultilanguageText>();
 
             switch (reader.TokenType)
             {
@@ -30,28 +31,28 @@ namespace MDD4All.SpecIF.DataModels.Converters
                     break;
                 case JsonToken.StartArray:
                     List<MultilanguageText> arrayValue = serializer.Deserialize<List<MultilanguageText>>(reader);
-                    value.MultilanguageText = arrayValue;
+                    value.MultilanguageTexts = arrayValue;
                     break;
             }
 
             return value;
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object jsonValue, JsonSerializer serializer)
         {
-            Value val = value as Value;
+            Value value = jsonValue as Value;
 
-            if (val.StringValue != null)
+            if (value.StringValue != null)
             {
-                JToken token = JToken.FromObject(val.StringValue);
+                JToken token = JToken.FromObject(value.StringValue);
 
                 token.WriteTo(writer);
             }
-            else if (val.MultilanguageText != null)
+            else if (value.MultilanguageTexts != null && value.MultilanguageTexts.Count > 0)
             {
                 JArray array = new JArray();
 
-                foreach (MultilanguageText languageValue in val.MultilanguageText)
+                foreach (MultilanguageText languageValue in value.MultilanguageTexts)
                 {
                     array.Add(JToken.FromObject(languageValue));
                 }
