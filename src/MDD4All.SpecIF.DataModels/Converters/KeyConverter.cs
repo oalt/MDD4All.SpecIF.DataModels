@@ -32,7 +32,19 @@ namespace MDD4All.SpecIF.DataModels.Converters
                     JObject keyJObject = JObject.Load(reader);
 
                     result.ID = keyJObject["id"].ToString();
-                    result.Revision = keyJObject["revision"].ToString();
+
+                    JToken revision = keyJObject["revision"];
+
+                    if(revision != null)
+                    {
+                        result.Revision = revision.ToString();
+                    }
+                    else
+                    {
+                        result.Revision = null;
+                    }
+
+                    
                 }
                 catch (Exception exception)
                 {
@@ -63,7 +75,10 @@ namespace MDD4All.SpecIF.DataModels.Converters
                     JObject keyJObject = new JObject();
 
                     keyJObject.Add("id", JToken.FromObject(key.ID));
-                    keyJObject.Add("revision", JToken.FromObject(key.Revision));
+                    if (key.Revision != null)
+                    {
+                        keyJObject.Add("revision", JToken.FromObject(key.Revision));
+                    }
 
                     keyJObject.WriteTo(writer);
                 }
