@@ -44,5 +44,38 @@ namespace MDD4All.SpecIF.DataModels
 
             return result;
         }
+
+        public override bool Equals(object obj)
+        {
+            bool result = false;
+
+            if(obj is Key)
+            {
+                Key other = (Key)obj;
+                result = ID.Equals(other.ID);
+                if(Revision != null)
+                {
+                    result = result && Revision.Equals(other.Revision);
+                }
+                else
+                {
+                    result = result && (other.Revision == null);
+                }
+            }
+            
+            return result;
+        }
+
+        public override int GetHashCode()
+        {
+            int result = ID.GetHashCode();
+
+            if(Revision != null)
+            {
+                result = result ^ Revision.GetHashCode();
+            }
+
+            return result;
+        }
     }
 }
