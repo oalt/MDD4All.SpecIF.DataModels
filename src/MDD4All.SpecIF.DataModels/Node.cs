@@ -46,11 +46,20 @@ namespace MDD4All.SpecIF.DataModels
                 {
                     JObject resourceJObject = value as JObject;
 
-                    _resourceReference = new Key()
+                    JToken idToken = resourceJObject["id"];
+                    JToken revisionToken = resourceJObject["revision"];
+
+                    Key key = new Key();
+                    if(idToken != null)
                     {
-                        ID = resourceJObject["id"].ToString(),
-                        Revision = resourceJObject["revision"].ToString()
-                    };
+                        key.ID = idToken.ToString();
+                    }
+                    if(revisionToken != null)
+                    {
+                        key.Revision = revisionToken.ToString();
+                    }
+
+                    _resourceReference = key;
                 }
                 else if (value is Key)
                 {

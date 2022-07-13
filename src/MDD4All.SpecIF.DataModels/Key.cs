@@ -19,7 +19,7 @@ namespace MDD4All.SpecIF.DataModels
         public Key(string id)
         {
             ID = id;
-            Revision = SpecIfGuidGenerator.CreateNewSpecIfGUID();
+            Revision = null;
         }
 
         public Key(string id, string revision)
@@ -34,14 +34,17 @@ namespace MDD4All.SpecIF.DataModels
 
         [JsonProperty(PropertyName = "revision")]
         [BsonElement("revision")]
-        public string Revision { get; set; } = SpecIfGuidGenerator.CreateNewSpecIfGUID();
+        public string Revision { get; set; } = null;
 
         public override string ToString()
         {
             string result = "";
 
-            result += ID + "_R_" + Revision;
-
+            result += ID;
+            if (Revision != null)
+            {
+                result += "_R_" + Revision;
+            }
             return result;
         }
 
