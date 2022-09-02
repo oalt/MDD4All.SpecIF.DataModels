@@ -3,7 +3,6 @@
  */
 using MDD4All.SpecIF.DataModels.BaseTypes;
 using MDD4All.SpecIF.DataModels.Converters;
-using MDD4All.SpecIF.DataModels.Helpers;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 
