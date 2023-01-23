@@ -28,7 +28,7 @@ namespace MDD4All.SpecIF.DataModels
 
         [JsonProperty(PropertyName = "values")]
         [BsonElement("values")]
-        public List<Value> Values { get; set; } = new List<Value>();
+        public List<Value> Values { get; set; } = null;
 
         [JsonIgnore]
         [BsonIgnore]
