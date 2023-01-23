@@ -19,10 +19,6 @@ namespace MDD4All.SpecIF.DataModels
             Class = propertyClass;
             Value value = new Value(singleNonStringValue);
 
-            if(Values == null)
-            {
-                Values = new List<Value>();
-            }
             Values.Add(value);
         }
 
@@ -32,11 +28,6 @@ namespace MDD4All.SpecIF.DataModels
             Value value = new Value();
 
             value.MultilanguageTexts.Add(singleStringValue);
-
-            if (Values == null)
-            {
-                Values = new List<Value>();
-            }
 
             Values.Add(value);
         }
@@ -53,6 +44,6 @@ namespace MDD4All.SpecIF.DataModels
 
         [JsonProperty(PropertyName = "values", Order = -95)]
         [BsonElement("values")]
-        public List<Value> Values { get; set; } = null;
+        public List<Value> Values { get; set; } = new List<Value>();
     }
 }
