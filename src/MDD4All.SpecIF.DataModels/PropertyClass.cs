@@ -28,44 +28,6 @@ namespace MDD4All.SpecIF.DataModels
 
         [JsonProperty(PropertyName = "values")]
         [BsonElement("values")]
-        public List<Value> Values { get; set; } = new List<Value>();
-
-        [JsonIgnore]
-        [BsonIgnore]
-        public string Value
-        {
-            set
-            {
-                Value v = new Value(new MultilanguageText(value));
-
-                if (Values.Count > 0)
-                {
-                    Values[0] = v;
-                }
-                else
-                {
-                    Values.Add(v);
-                }
-            }
-        }
-
-        [JsonIgnore]
-        [BsonIgnore]
-        public MultilanguageText MultilanguageValue
-        {
-            set
-            {
-                Value v = new Value(value);
-
-                if (Values.Count > 0)
-                {
-                    Values[0] = v;
-                }
-                else
-                {
-                    Values.Add(v);
-                }
-            }
-        }
+        public List<Value> Values { get; set; } = null;
     }
 }
