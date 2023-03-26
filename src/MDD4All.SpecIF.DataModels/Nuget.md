@@ -1,0 +1,1 @@
+﻿Data models for SpecIF data serialization (POCO)
