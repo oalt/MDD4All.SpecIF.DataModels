@@ -14,17 +14,17 @@ jobs:
       PROJECT_NAME: MDD4All.SpecIF.DataModels
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout source code
+      uses: actions/checkout@v3
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
 
-    - name: Get version form file
-      uses: pCYSl5EDgo/cat@master
+    - name: Read VERSION file
       id: fileVersion
-      with: 
-        path: src/version.txt
+      run: echo "version=$(cat src/versn.txt)" >> $GITHUB_OUTPUT
 
     - name: Set version as environment variable
       run: echo "VERSION=$(echo $FILE_VERSION.$GITHUB_RUN_NUMBER)" >> $GITHUB_ENV
