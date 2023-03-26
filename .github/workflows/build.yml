@@ -24,7 +24,7 @@ jobs:
 
     - name: Read VERSION file
       id: fileVersion
-      run: echo "version=$(cat src/versn.txt)" >> $GITHUB_OUTPUT
+      run: echo "version=$(cat src/version.txt)" >> $GITHUB_OUTPUT
 
     - name: Set version as environment variable
       run: echo "VERSION=$(echo $FILE_VERSION.$GITHUB_RUN_NUMBER)" >> $GITHUB_ENV
